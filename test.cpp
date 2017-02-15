@@ -5,7 +5,7 @@
 #include<algorithm>
 #include<vector>
 #include<map>
-#define maxn 30000
+#define maxn 20000
 using namespace std;
 vector<string> vec[maxn+5];
 map<string,int> lalala;
@@ -37,71 +37,40 @@ int main()
 				for(int j=0;j<a.size();j++)
 				{
 					if(a[j]=='.') continue;
-					if(a[j]=='+')
-					{
-						for(int m=j+1;m<a.size();m++)
-						{
-							if(a[m]=='@') 
-							{
-								j=m;
-								break;
-							}
-						}
-					}
+					if(a[j]=='+'||a[j]=='@') break;
 					copy+=tolower(a[j]);
 				}
 				if(!lalala[copy])
 				{
-					vec[++k].push_back(copy);
-					vec[k].push_back(a);
-					lalala[copy]++;
+					vec[++k].push_back(a);
+					lalala[copy]=k;
 				}
 				else
 				{
-					for(int j=1;j<=k;j++)
-					{
-						if(copy==vec[j][0])
-						{
-							vec[j].push_back(a);	
-							break;
-						}
-					}	
+					vec[lalala[copy]].push_back(a);	
 				}
 			}
 			else
 			{
 				string copy;
-				//bool is_ok=false;
 				for(int j=0;j<a.size();j++)
-				{
-					//if(a[j]=='.' && is_ok==false) continue;
-					copy+=tolower(a[j]);
-					//if(a[j]=='@') is_ok=true;
-				}	
+					copy+=tolower(a[j]);	
 				if(!lalala[copy])
 				{
-					vec[++k].push_back(copy);
-					vec[k].push_back(a);
-					lalala[copy]++;
+					vec[++k].push_back(a);
+					lalala[copy]=k;
 				}
 				else
 				{
-					for(int j=1;j<=k;j++)
-					{
-						if(copy==vec[j][0])
-						{
-							vec[j].push_back(a);
-							break;
-						}
-					}	
+					vec[lalala[copy]].push_back(a);
 				}
 			}
 		}
 		printf("%d\n",k);
 		for(int i=1;i<=k;i++)
 		{
-			printf("%d",(int)vec[i].size()-1);
-			for(int j=1;j<vec[i].size();j++)
+			printf("%d",(int)vec[i].size());
+			for(int j=0;j<vec[i].size();j++)
 			{
 				printf(" ");
 				cout<<vec[i][j];
