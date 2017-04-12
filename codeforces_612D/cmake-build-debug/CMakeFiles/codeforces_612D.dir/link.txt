@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/codeforces_612D.dir/main.cpp.o  -o codeforces_612D 

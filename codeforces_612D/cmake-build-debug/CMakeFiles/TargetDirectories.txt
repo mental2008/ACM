@@ -1,0 +1,3 @@
+/home/mental/ACM/codeforces_612D/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mental/ACM/codeforces_612D/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mental/ACM/codeforces_612D/cmake-build-debug/CMakeFiles/codeforces_612D.dir
