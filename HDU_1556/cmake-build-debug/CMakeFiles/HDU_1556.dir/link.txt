@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/HDU_1556.dir/main.cpp.o  -o HDU_1556 
