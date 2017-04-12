@@ -1,0 +1,3 @@
+/home/mental/ACM/poj_2352/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mental/ACM/poj_2352/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mental/ACM/poj_2352/cmake-build-debug/CMakeFiles/poj_2352.dir

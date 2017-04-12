@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/poj_2352.dir/main.cpp.o  -o poj_2352 
