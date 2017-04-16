@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/zoj_3956.dir/main.cpp.o  -o zoj_3956 
