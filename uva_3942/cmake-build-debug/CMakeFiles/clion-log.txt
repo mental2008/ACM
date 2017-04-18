@@ -1,0 +1,4 @@
+/home/mental/下载/clion-2017.1/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/mental/ACM/uva_3942
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/mental/ACM/uva_3942/cmake-build-debug
