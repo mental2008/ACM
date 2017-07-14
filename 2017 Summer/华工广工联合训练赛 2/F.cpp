@@ -1,24 +1,24 @@
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-#include <cmath>
-#define LL long long
+#include <bits/stdc++.h>
 using namespace std;
+typedef long long LL;
+LL num[10];
 int main() {
+    for(int i = 1; i < 10; i++) {
+		num[i] = (1LL * i * pow(26, i));
+	}
 	int n;
+	int ch[10];
 	while(~scanf("%d", &n)) {
-		LL upper = 0;
-		for(int i = 1; i <= 6; i++) {
-			upper += (1LL * i * pow(26, i));
-			if(n < upper) {
-				LL lower = upper - 1LL * i * pow(26, i);
-				LL x = n - lower;
-//				int axis[10];
-//				memset(axis, 0, sizeof(axis));
-//				
-				printf("%c\n", (x + 'A'));
-				
+		memset(ch, 0, sizeof(ch));	
+		for(int len = 1; len < 10; len++) {
+			if(n >= num[len]) n -= num[len];
+			else {
+				int index = n / len;
+				for(int i = len - 1; index; i--) {
+					ch[i] = index % 26;
+					index /= 26;
+				}
+				printf("%c\n", (char(ch[n % len] + 'A')));
 				break;
 			}
 		}
