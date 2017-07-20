@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
 using namespace std;
 const int maxn = 20;
 int op[maxn][maxn];
@@ -96,7 +96,8 @@ void solve() {
 }
 
 int main() {
-//	freopen("in.txt", "r", stdin);
+	freopen("in.txt", "r", stdin);
+	printf("fff");
 	init();
 	solve();
 	return 0;
