@@ -1,11 +1,18 @@
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+#include <queue>
 using namespace std;
-const int maxn = 1005;
+const int maxn = 2005;
 const int INF = (1 << 30) - 1;
 int row, col;
 int s, t;
 int dis;
-char pillar[25][25], lizard[25][25];
+char pillar[30][30], lizard[30][30];
 struct Edge {
 	int from, to, cap, flow;
 	Edge(int _from, int _to, int _cap, int _flow) {
@@ -19,8 +26,6 @@ int num[maxn];
 int d[maxn];
 int cur[maxn];
 bool vis[maxn];
-int cnt;
-int temp[maxn][maxn];
 
 void init() {
 	for(int i = 0; i < maxn; i++) G[i].clear();
@@ -79,7 +84,7 @@ int Maxflow(int u, int v) {
 	memset(num, 0, sizeof(num));
 	for(int i = 0; i <= row * col * 2 + 1; i++) if(d[i] != -1) num[d[i]]++;
 	memset(cur, 0, sizeof(cur));
-	while(d[x] < t) {
+	while(d[x] <= t) {
 		if(x == t) {
 			flow += Augment();
 			x = s;
@@ -123,27 +128,18 @@ int main() {
 		}
 		col = (int)strlen(pillar[0]);
 		init();
-		cnt = 0;
-		memset(temp, 0, sizeof(temp));
-		for(int i = 0; i < row; i++) {
-			for(int j = 0; j < col; j++) {
-				if(pillar[i][j] != '0') {
-					temp[i][j] = ++cnt;
-				}
-			}
-		}
 		int sum = 0;
 		for(int i = 0; i < row; i++) {
 			for(int j = 0; j < col; j++) {
+				int id = i * col + j + 1;  
 				if(lizard[i][j] == 'L') {
-					AddEdge(0, temp[i][j], 1);
+					AddEdge(0, id, 1);
 					sum++;
 				}
 				if(pillar[i][j] != '0') {
-					//AddEdge(0, temp[i][j], 1);
-					AddEdge(temp[i][j], temp[i][j] + row * col, pillar[i][j] - '0');
+					AddEdge(id, id + row * col, pillar[i][j] - '0');
 					if(i - dis < 0 || i + dis >= row || j - dis < 0 || j + dis >= col) {
-						AddEdge(temp[i][j] + row * col, row * col * 2 + 1, INF);
+						AddEdge(id + row * col, row * col * 2 + 1, INF);
 					}
 					else {
 						for(int x = 0; x < row; x++) {
@@ -151,7 +147,8 @@ int main() {
 								if(x == i && y == j) continue;
 								if(pillar[x][y] != '0') {
 									if(abs(x - i) + abs(y - j) <= dis) {
-										AddEdge(temp[i][j] + row * col, temp[x][y], INF);
+										int idxy = x * col + y + 1;
+										AddEdge(id + row * col, idxy, INF);
 									}
 								}
 							}
