@@ -24,11 +24,11 @@ void getNext(char *ch) {
 int main() {
 	while(~scanf("%s", s)) {
 		getNext(s);
-		/*for(int i = 0; i <= strlen(s); i++) {
+		for(int i = 0; i <= strlen(s); i++) {
 			printf("%d ", nxt[i]);
 		}
-		puts("");*/
-		printf("%d\n", strlen(s) - nxt[strlen(s)]);
+		puts("");
+		//printf("%d\n", strlen(s) - nxt[strlen(s)]);
 	}
 	return 0;
 }
