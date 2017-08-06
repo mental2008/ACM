@@ -5,25 +5,37 @@
 using namespace std;
 typedef long long LL;
 LL l, r;
-LL dp[20][12][12][20];
 int k;
 int num[20];
+LL dp[20][1 << 10][15];
 
-LL dfs(int pos, int now, int increase, bool flag, int sum) {
-	if(pos == -1) {
-		if(sum == k) return 1;
-		else return 0;
+int len(int sum) {
+	int count = 0;
+	while(sum) {
+		if(sum & 1) count++;
+		sum >>= 1;
 	}
-	if(!flag && dp[pos][now][increase][sum] != -1) return dp[pos][now][increase][sum];
+	return count;
+}
+
+int getSum(int sum, int i) {
+	for(int j = i; j <= 9; j++) {
+		if(sum & (1 << j)) return ((sum ^ (1 << j)) | (1 << i));
+	}
+	return sum | (1 << i);
+}
+
+LL dfs(int pos, int sum, bool zero, bool flag) {
+	if(pos == -1) return len(sum) == k;
+	if(!flag && dp[pos][sum][k] != -1) return dp[pos][sum][k];
 	LL res = 0;
 	int p;
 	if(flag) p = num[pos];
 	else p = 9;
 	for(int i = 0; i <= p; i++) {
-		if(now < i) res += dfs(pos - 1, i, increase + 1, flag && i == p, max(sum, increase + 1));
-		else res += dfs(pos - 1, i, 0, flag && i == p, sum);
+		res += dfs(pos - 1, (zero && i == 0 ? 0 : getSum(sum, i)), zero && i == 0, flag && i == p);
 	}
-	if(!flag) dp[pos][now][increase][sum] = res;
+	if(!flag) dp[pos][sum][k] = res;
 	return res;
 }
 
@@ -33,16 +45,16 @@ LL cal(LL x) {
 		num[i++] = x % 10;
 		x /= 10;
 	}
-	return dfs(i - 1, 0, 0, 1, 0);
+	return dfs(i - 1, 0, 1, 1);
 }
 
 int main() {
 	int caseCnt;
 	scanf("%d", &caseCnt);
 	memset(dp, -1, sizeof(dp));
-	while(caseCnt--) {
+	for(int times = 1; times <= caseCnt; times++) {
 		scanf("%lld%lld%d", &l, &r, &k);
-		printf("%lld\n", cal(r) - cal(l - 1));
+		printf("Case #%d: %lld\n", times, cal(r) - cal(l - 1));
 	}
 	return 0;
-} 
+}
