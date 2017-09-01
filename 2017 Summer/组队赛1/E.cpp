@@ -25,7 +25,6 @@ struct student {
 	int english;
 } node[maxn];
 
-int status[maxn];
 vector<int> vec;
 
 bool cmp(int x, int y) {
@@ -74,21 +73,16 @@ int main() {
 			vz = vz * pz + tz;
 			node[i].english = vz % 5000;
 		}
-		sort(node, node + n, cmp1);
-		mem(status, 0);
 		for(int i = 0; i < n; ++i) {
-			if(status[i] == 0) {
-				bool ok = true;
-				for(int j = i + 1; j < n; ++j) {
-					if(node[i].chinese > node[j].chinese && node[i].math > node[j].math && node[i].english > node[j].english) {
-						del(j, n);
-						j--;
-					}
-					if(node[i].chinese < node[j].chinese && node[i].math < node[j].math && node[i].english < node[j].english) {
-						del(i, n);
-						i--;
-						break;
-					}
+			for(int j = i + 1; j < n; ++j) {
+				if(node[i].chinese > node[j].chinese && node[i].math > node[j].math && node[i].english > node[j].english) {
+					del(j, n);
+					j--;
+				}
+				if(node[i].chinese < node[j].chinese && node[i].math < node[j].math && node[i].english < node[j].english) {
+					del(i, n);
+					i--;
+					break;
 				}
 			}
 		}
