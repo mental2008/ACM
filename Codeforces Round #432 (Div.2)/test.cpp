@@ -19,5 +19,6 @@ const int MOD = 1e9 + 7;
 const double exps = 1e-8;
 const double PI = acos(-1.0);
 int main() {
+	system("pause");
     return 0;
 }
