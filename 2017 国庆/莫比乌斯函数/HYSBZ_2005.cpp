@@ -7,6 +7,7 @@ int prime[maxn];
 int cnt;
 bool vis[maxn];
 int mu[maxn];
+LL sum[maxn];
 
 void Mobius() {
     mem(prime, 0);
@@ -29,31 +30,25 @@ void Mobius() {
             }
         }
     }
+    mem(sum, 0);
+    for(int i = 1; i < n; ++i) {
+        for(int j = i; j < n; j += i) {
+            sum[j] += (mu[i] * (j / i));
+        }
+    }
 }
 
 int main() {
     Mobius();
-    int caseCnt;
-    scanf("%d", &caseCnt);
-    for(int times = 1; times <= caseCnt; ++times) {
-        int a, b;
-        int c, d;
-        int k;
-        scanf("%d%d%d%d%d", &a, &b, &c, &d, &k);
-        if(k == 0) {
-            printf("Case %d: %lld\n", times, 0LL);
-            continue;
+    LL n, m;
+    while(~scanf("%lld%lld", &n, &m)) {
+        LL res = min(n, m);
+        LL ans = 0;
+        for(int i = 1; i <= (int)res; ++i) {
+            ans += (2LL * (n / i) * (m / i) * sum[i]);
         }
-        if(b > d) swap(b, d);
-        LL ans1 = 0;
-        for(int i = 1; i * k <= b; ++i) {
-            ans1 += (1LL * mu[i] * (b / (i * k)) * (d / (i * k)));
-        }
-        LL ans2 = 0;
-        for(int i = 1; i * k <= b; ++i) {
-            ans2 += (1LL * mu[i] * (b / (i * k)) * (b / (i * k)));
-        }
-        printf("Case %d: %lld\n", times, ans1 - ans2 / 2);
+        ans -= (n * m);
+        printf("%lld\n", ans);
     }
     return 0;
 }
