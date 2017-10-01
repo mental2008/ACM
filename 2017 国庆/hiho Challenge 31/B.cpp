@@ -5,56 +5,49 @@ typedef long long LL;
 const int MOD = 1000000007;
 int n;
 LL a[65];
-int res[65][65][65];
-bool vis[65];
-
-struct Node {
-    int x, y, z;
-} node[65 * 65 * 65];
-int cnt;
-
-LL dfs(int pre, int now, int next, int depth) {
-    if(depth == n - 2) {
-        return 1;
-    }
-    LL ans = 0;
-    for(int i = 1; i <= n; ++i) {
-        if(res[now][next][i] && !vis[i]) {
-            vis[i] = 1;
-            ans = (ans + dfs(now, next, i, depth + 1)) % MOD;
-            vis[i] = 0;
-        }
-    }
-    return ans;
-}
-
+LL pre[65];
+LL dp[65][65][65][65];
 int main() {
     while(~scanf("%d", &n)) {
         for(int i = 1; i <= n; ++i) {
             scanf("%lld", &a[i]);
         }
-        mem(res, 0);
-        cnt = 0;
+        sort(a + 1, a + 1 + n);
+        int num = 0;
         for(int i = 1; i <= n; ++i) {
-            for(int j = 1; j <= n; ++j) {
-                for(int k = 1; k <= n; ++k) {
-                    if(i == j || i == k || j == k) continue;
-                    if(a[i] - a[j] >= a[j] - a[k]) {
-                        res[i][j][k] = 1;
-                        node[cnt].x = i;
-                        node[cnt].y = j;
-                        node[cnt++].z = k;
+            if(a[i] == a[1]) num++;
+        }
+        pre[0] = 1;
+        for(int i = 1; i <= num; ++i) {
+            pre[i] = (pre[i - 1] * i) % MOD;
+        }
+        for(int i = 2; i + num - 1 <= n; ++i) {
+            a[i] = a[i + num - 1];
+        }
+        n = n - num + 1;
+        mem(dp, 0);
+        dp[1][0][0][1] = 1;
+        LL ans = 0;
+        for(int i = 1; i <= n; ++i) {
+            for(int j = 0; j < n; ++j) {
+                for(int k = 0; k < n; ++k) {
+                    for(int l = 1; l <= n; ++l) {
+                        int temp = max(i, l) + 1;
+                        if(temp == n + 1) {
+                            ans = (ans + dp[i][j][k][l]) % MOD;
+                            continue;
+                        }
+                        if(j == 0 || a[j] - a[i] >= a[i] - a[temp]) {
+                            dp[temp][i][k][l] = (dp[temp][i][k][l] + dp[i][j][k][l]) % MOD;
+                        }
+                        if(k == 0 || a[temp] - a[l] >= a[l] - a[k]) {
+                            dp[i][j][l][temp] = (dp[i][j][l][temp] + dp[i][j][k][l]) % MOD;
+                        }
                     }
                 }
             }
         }
-        LL ans = 0;
-        for(int i = 0; i < cnt; ++i) {
-            mem(vis, 0);
-            int x = node[i].x, y = node[i].y, z = node[i].z;
-            vis[x] = vis[y] = vis[z] = 1;
-            ans = (ans + dfs(x, y, z, 1)) % MOD;
-        }
+        ans = (ans * pre[num]) % MOD;
         printf("%lld\n", ans);
     }
     return 0;
