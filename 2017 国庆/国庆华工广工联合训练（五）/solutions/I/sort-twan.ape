@@ -1,0 +1,88 @@
+
+// --------------------------------------------------------
+// Utility
+// --------------------------------------------------------
+
+state false { return false; }
+state true  { return true; }
+state remember_false {
+	call false;
+	call remember;
+	return false;
+}
+state remember_true {
+	call true;
+	call remember;
+	return true;
+}
+
+// --------------------------------------------------------
+// Movement
+// --------------------------------------------------------
+
+// Move to the first position
+//   Precondition:   - left gripper empty
+//                   - current position is not empty
+//   Postcondition:  - left gripper empty
+//                   - at first array position
+state move_completely_left {
+	call pick_up_left;
+	call if_empty_left;
+	then {
+		call move_right;
+		return true;
+	}
+	call put_down_left;
+	call move_left;
+}
+
+// A single pass of bubble sort
+//   Precondition:   - grippers empty
+//                   - current position is at the start
+//   Postcondition:  - grippers empty
+//                   - 'remember' will be set if we made any changes
+state bubble_sort_pass {
+	call pick_up_left;
+	call move_right;
+	call pick_up_right;
+	call if_empty_left;
+	then {
+		// we have reached the end
+		call put_down_right;
+		call move_left;
+		call put_down_left;
+		return true;
+	}
+	call if_empty_right;
+	then {
+		// we have reached the end
+		call put_down_right;
+		call move_left;
+		call put_down_left;
+		return true;
+	}
+	
+	call if_tilt_left;
+	then {
+		// not sorted, swap
+		call remember_true;
+		call put_down_left;
+		call move_left;
+		call put_down_right;
+	} else {
+		// already sorted, restore
+		call put_down_right;
+		call move_left;
+		call put_down_left;
+		call move_right;
+	}
+}
+
+// Main run function
+state main {
+	call remember_false;
+	call move_completely_left;
+	call bubble_sort_pass;
+	call recall;
+	then {} else { return true; }
+}

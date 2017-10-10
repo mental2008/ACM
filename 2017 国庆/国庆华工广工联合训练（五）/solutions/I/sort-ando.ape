@@ -1,0 +1,81 @@
+/* bubble sort */
+
+state main {
+	//call trace;
+	call set_true;
+	call pass;
+	then {
+		return true;
+	}
+}
+state pass {
+	//call trace;
+	call pick_two_up;
+	then {
+		call if_tilt_left;
+		then {
+			call set_false;
+			call move_left;
+			call put_down_right;
+			call move_right;
+			call put_down_left;
+		} else {
+			call move_left;
+			call put_down_left;
+			call move_right;
+			call put_down_right;
+		}
+	} else {
+		call move_to_beginning;
+		call recall;
+		then {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+state pick_two_up {
+	call pick_up_left;
+	call if_empty_left;
+	then {
+		return false;
+	}
+	call move_right;
+	call pick_up_right;
+	call if_empty_right;
+	then {
+		call move_left;
+		call put_down_left;
+		call move_right;
+		return false;
+	}
+	return true;
+}
+state move_to_beginning {
+	call move_left;
+	call pick_up_left;
+	call if_empty_left;
+	then {
+		call move_right;
+		return true;
+	} else {
+		call put_down_left;
+	}
+}
+state set_false {
+	call return_false;
+	call remember;
+	return false;
+}
+state set_true {
+	call return_true;
+	call remember;
+	return true;
+}
+state return_false {
+	return false;
+}
+state return_true {
+	return true;
+}

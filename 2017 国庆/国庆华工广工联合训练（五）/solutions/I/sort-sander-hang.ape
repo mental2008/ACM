@@ -1,0 +1,68 @@
+
+// This doesn't work for lists with duplicate items!
+
+state move_completely_left {
+  call pick_up_left;
+  call if_empty_left;
+  then {
+    call move_right;
+    return true;
+  }
+  call put_down_left;
+  call move_left;
+}
+
+state pickup {
+  call pick_up_left;
+  call move_right;
+  call pick_up_right;
+  call move_left;
+  return true;
+}
+
+state undo_pickup {
+  call put_down_left;
+  call move_right;
+  call put_down_right;
+  call move_left;
+  return true;
+}
+
+state undo_pickup_swap {
+  call put_down_right;
+  call move_right;
+  call put_down_left;
+  call move_left;
+  return true;
+}
+
+state solve {
+  call pickup;
+  call if_empty_right;
+  then {
+    call undo_pickup;
+    return true;
+  }
+
+  call if_empty_left; then {
+    call undo_pickup;
+    call move_right;
+  } 
+  else {
+   call if_tilt_right; then {
+    call undo_pickup;
+    call move_right;
+   }
+   else {
+    call undo_pickup_swap;
+    call move_left;
+   }
+  }
+}
+
+// Main run function
+state main {
+ call move_completely_left;
+ call solve;
+ return true;
+}
