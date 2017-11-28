@@ -1,45 +1,91 @@
 #include <bits/stdc++.h>
+#define mem(a, i) memset(a, i, sizeof(a))
 using namespace std;
 typedef long long LL;
 const int MOD = 1e9 + 7;
-LL dp[2700];
-LL a[75];
+const int maxn = 6e5 + 5;
+int n;
+int a[75];
+int dp[75][maxn];
+int f1[75];
+int f0[75];
+int mask[75];
+vector<int> prime;
 
-LL quick_pow(LL a, LL n) {
-    LL p = a;
+bool judge(int x) {
+    for(int i = 2; i * i <= x; ++i) {
+        if(x % i == 0) return false;
+    }
+    return true;
+}
+
+void init() {
+    prime.clear();
+    for(int i = 2; i <= 70; ++i) {
+        if(judge(i)) prime.push_back(i);
+    }
+    mem(mask, 0);
+    for(int i = 2; i <= 70; ++i) {
+        int temp = i;
+        int len = prime.size();
+        for(int j = 0; j < len && prime[j] <= temp; ++j) {
+            if(temp % prime[j] == 0) {
+                int num = 0;
+                while(temp % prime[j] == 0) {
+                    temp /= prime[j];
+                    num++;
+                }
+                if(num & 1) mask[i] |= (1 << j);
+            }
+
+        }
+    }
+}
+
+int quick_pow(int a, int n) {
     LL res = 1;
+    LL p = a % MOD;
     while(n) {
         if(n & 1) res = (res * p) % MOD;
         p = (p * p) % MOD;
         n >>= 1;
     }
-    return res;
+    return (int)res;
 }
 
 int main() {
-    int n;
+    init();
+    // printf("%d\n", (int)prime.size());
+    // printf("%d\n", (1 << 19));
     scanf("%d", &n);
-    memset(a, 0, sizeof(a));
+    mem(a, 0);
     for(int i = 1; i <= n; ++i) {
         int val;
         scanf("%d", &val);
         a[val]++;
     }
-    for(int i = 2; i <= 2650; ++i) {
-        if(i <= 70) dp[i] = a[i] * a[i] % MOD;
-        else dp[i] = 0;
-        for(int j = 2; j * j <= i; ++j) {
-            if(i % j == 0) {
-                dp[i] = (dp[i] % MOD + dp[j] * dp[i / j] % MOD) % MOD;
-            }
+    for(int i = 2; i <= 70; ++i) {
+        if(a[i]) {
+            f1[i] = quick_pow(2, a[i] - 1);
+            f0[i] = quick_pow(2, a[i] - 1);
         }
-        if(i <= 10) printf("i = %d dp[i] = %lld\n", i, dp[i]);
+        else {
+            f1[i] = 0;
+            f0[i] = 1;
+        }
     }
-    LL sum = 0;
-    for(int i = 2; i <= 2650; ++i) sum = (sum + dp[i]) % MOD;
-    sum = (sum * quick_pow(2, a[1])) % MOD;
-    sum = (sum + (quick_pow(2, a[1]) - 1) % MOD) % MOD;
-    sum = (sum % MOD + MOD) % MOD;
-    printf("%lld\n", sum);
+    int len = prime.size();
+    mem(dp, 0);
+    dp[1][0] = quick_pow(2, a[1]);
+    for(int i = 2; i <= 70; ++i) {
+        for(int j = 0; j < (1 << len); ++j) {
+            dp[i][j ^ mask[i]] = (1LL * dp[i][j ^ mask[i]] + 1LL * dp[i - 1][j] * f1[i] % MOD) % MOD;
+            dp[i][j] = (1LL * dp[i][j] + 1LL * dp[i - 1][j] * f0[i] % MOD) % MOD;
+        }
+    }
+    int ans = dp[70][0];
+    ans--;
+    ans = (ans % MOD + MOD) % MOD;
+    printf("%d\n", ans);
     return 0;
 }
