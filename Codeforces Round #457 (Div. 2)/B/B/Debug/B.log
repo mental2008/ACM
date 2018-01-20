@@ -1,0 +1,6 @@
+﻿  B.cpp
+f:\acm\codeforces round #457 (div. 2)\b\b\b.cpp(12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+f:\acm\codeforces round #457 (div. 2)\b\b\b.cpp(24): warning C4244: “=”: 从“LL”转换到“int”，可能丢失数据
+f:\acm\codeforces round #457 (div. 2)\b\b\b.cpp(26): warning C4244: “初始化”: 从“LL”转换到“int”，可能丢失数据
+f:\acm\codeforces round #457 (div. 2)\b\b\b.cpp(38): warning C4244: “初始化”: 从“LL”转换到“int”，可能丢失数据
+  B.vcxproj -> F:\ACM\Codeforces Round #457 (Div. 2)\B\Debug\B.exe
