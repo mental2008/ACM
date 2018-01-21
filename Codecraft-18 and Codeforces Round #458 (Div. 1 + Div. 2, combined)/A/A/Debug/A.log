@@ -1,0 +1,4 @@
+﻿  stdafx.cpp
+  A.cpp
+f:\acm\codecraft-18 and codeforces round #458 (div. 1 + div. 2, combined)\a\a\a.cpp(27): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  A.vcxproj -> F:\ACM\Codecraft-18 and Codeforces Round #458 (Div. 1 + Div. 2, combined)\A\Debug\A.exe
