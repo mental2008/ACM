@@ -1,0 +1,8 @@
+﻿cl : 命令行 warning D9025: 正在重写“/sdl”(用“/GS-”)
+  E.cpp
+f:\acm\牛客练习赛11\e\e\e.cpp(43): warning C4244: “初始化”: 从“double”转换到“LL”，可能丢失数据
+f:\acm\牛客练习赛11\e\e\e.cpp(63): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note: 参见“scanf”的声明
+f:\acm\牛客练习赛11\e\e\e.cpp(67): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note: 参见“scanf”的声明
+  E.vcxproj -> F:\ACM\牛客练习赛11\E\Debug\E.exe
