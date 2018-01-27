@@ -1,0 +1,3 @@
+﻿  P3709.cpp
+f:\acm\2018 winter\莫队算法\p3709\p3709\p3709.cpp(62): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  P3709.vcxproj -> F:\ACM\2018 Winter\莫队算法\P3709\Debug\P3709.exe
