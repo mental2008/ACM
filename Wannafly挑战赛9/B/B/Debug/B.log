@@ -1,0 +1,3 @@
+﻿  B.cpp
+f:\acm\wannafly挑战赛9\b\b\b.cpp(12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  B.vcxproj -> F:\ACM\Wannafly挑战赛9\B\Debug\B.exe
