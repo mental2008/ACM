@@ -1,0 +1,4 @@
+﻿  stdafx.cpp
+  B.cpp
+f:\acm\牛客练习赛14\b\b\b.cpp(56): warning C4244: “=”: 从“LL”转换到“int”，可能丢失数据
+  B.vcxproj -> F:\ACM\牛客练习赛14\B\Debug\B.exe
