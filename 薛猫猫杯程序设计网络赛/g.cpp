@@ -59,31 +59,48 @@ int main() {
             }
             for(auto it:st[i-2]) {
                 int x=it.fi.fi,y=it.fi.se;
+                int b=a[i-1],c=a[i];
                 int cnt=it.se;
-                int temp=min(a[i-1],a[i]);
+                int add=0;
+                int temp=min(b,c);
                 temp=min(temp,y);
-                if(x&&y-temp&&a[i-1]-temp) continue;
-                int val=st[i][mp(a[i-1]-temp,a[i]-temp)];
+                add+=temp;
+                b-=temp;c-=temp;y-=temp;
+                temp=min(x,y);
+                temp=min(temp,b);
+                add+=temp;
+                x-=temp;y-=temp;b-=temp;
+                int val=st[i][mp(b,c)];
                 if(val) {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=min(val,cnt+temp);
+                    st[i][mp(b,c)]=min(val,cnt+add);
                 }
                 else {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=cnt+temp;
+                    st[i][mp(b,c)]=cnt+add;
                 }
             }
             for(auto it:st[i-3]) {
                 int x=it.fi.fi,y=it.fi.se;
+                int b=a[i-2],c=a[i-1],d=a[i];
                 int cnt=it.se;
-                int temp=min(a[i-2],a[i-1]);
-                temp=min(temp,a[i]);
-                if(y&&a[i-2]-temp&&a[i-1]-temp) continue;
-                if(x&&y&&a[i-2]-temp) continue;
-                int val=st[i][mp(a[i-1]-temp,a[i]-temp)];
+                int add=0;
+                int temp=min(b,c);
+                temp=min(temp,d);
+                add+=temp;
+                b-=temp;c-=temp;d-=temp;
+                temp=min(b,c);
+                temp=min(temp,y);
+                add+=temp;
+                y-=temp;b-=temp;c-=temp;
+                temp=min(x,y);
+                temp=min(temp,b);
+                add+=temp;
+                x-=temp;y-=temp;b-=temp;
+                int val=st[i][mp(c,d)];
                 if(val) {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=min(val,cnt+temp);
+                    st[i][mp(c,d)]=min(val,cnt+add);
                 }
                 else {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=cnt+temp;
+                    st[i][mp(c,d)]=cnt+add;
                 }
             }
             if(i>=4) st[i-4].clear();
@@ -115,31 +132,48 @@ int main() {
             }
             for(auto it:st[i-2]) {
                 int x=it.fi.fi,y=it.fi.se;
+                int b=a[i-1],c=a[i];
                 int cnt=it.se;
-                int temp=min(a[i-1],a[i]);
+                int add=0;
+                int temp=min(b,c);
                 temp=min(temp,y);
-                if(x&&y-temp&&a[i-1]-temp) continue;
-                int val=st[i][mp(a[i-1]-temp,a[i]-temp)];
+                add+=temp;
+                b-=temp;c-=temp;y-=temp;
+                temp=min(x,y);
+                temp=min(temp,b);
+                add+=temp;
+                x-=temp;y-=temp;b-=temp;
+                int val=st[i][mp(b,c)];
                 if(val) {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=max(val,cnt+temp);
+                    st[i][mp(b,c)]=max(val,cnt+add);
                 }
                 else {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=cnt+temp;
+                    st[i][mp(b,c)]=cnt+add;
                 }
             }
             for(auto it:st[i-3]) {
                 int x=it.fi.fi,y=it.fi.se;
+                int b=a[i-2],c=a[i-1],d=a[i];
                 int cnt=it.se;
-                int temp=min(a[i-2],a[i-1]);
-                temp=min(temp,a[i]);
-                if(y&&a[i-2]-temp&&a[i-1]-temp) continue;
-                if(x&&y&&a[i-2]-temp) continue;
-                int val=st[i][mp(a[i-1]-temp,a[i]-temp)];
+                int add=0;
+                int temp=min(b,c);
+                temp=min(temp,d);
+                add+=temp;
+                b-=temp;c-=temp;d-=temp;
+                temp=min(b,c);
+                temp=min(temp,y);
+                add+=temp;
+                y-=temp;b-=temp;c-=temp;
+                temp=min(x,y);
+                temp=min(temp,b);
+                add+=temp;
+                x-=temp;y-=temp;b-=temp;
+                int val=st[i][mp(c,d)];
                 if(val) {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=max(val,cnt+temp);
+                    st[i][mp(c,d)]=max(val,cnt+add);
                 }
                 else {
-                    st[i][mp(a[i-1]-temp,a[i]-temp)]=cnt+temp;
+                    st[i][mp(c,d)]=cnt+add;
                 }
             }
             if(i>=4) st[i-4].clear();
