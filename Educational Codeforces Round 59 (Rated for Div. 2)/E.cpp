@@ -29,32 +29,21 @@ int main() {
     scanf("%d",&n);
     scanf("%s",s+1);
     rep(i,1,n) scanf("%lld",&a[i]);
-    rep(i,0,maxn-1) {
-        rep(j,0,maxn-1) {
-            rep(dig,0,1) {
-                rep(cnt,0,maxn-1) {
-                    int sum=0;
-                    rep(k,i,j) {
-                        if(s[k]==dig+'0') sum++;
-                    }
-                    if(sum<cnt) {
-                        dp[i][j][cnt][dig]=-INF;
-                    }
-                }
-            }
-        }
-    }
     rep(i,1,n) {
         rep(j,1,n) {
             int l=j,r=j+i-1;
             if(r>n) continue;
             rep(dig,0,1) {
-                rep(cnt,1,i) {
+                rep(cnt,1,n) {
                     int sum=0;
                     rep(k,l,r) if(s[k]==dig+'0') sum++;
-                    if(sum<cnt) continue;
+                    if(sum<cnt) {
+                        dp[l][r][cnt][dig]=-INF;
+                        continue;
+                    }
                     rep(k,l,r) {
                         if(s[k]==dig+'0') {
+                            if(k+1>r&&cnt-1!=0) continue;
                             dp[l][r][cnt][dig]=max(ans[l][k-1]+dp[k+1][r][cnt-1][dig],dp[l][r][cnt][dig]);
                         }
                     }
